@@ -1,40 +1,4 @@
 local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/Anhtank123/menu/main/README.md'))() -- loadstring(game:HttpGet('https://raw.githubusercontent.com/Anhtank123/uitest/main/README.md'))()
-local ThunderScreen = Instance.new("ScreenGui")
-local ThunderToggleUI = Instance.new("TextButton")
-local ThunderCornerUI = Instance.new("UICorner")
-local ThunderImageUI = Instance.new("ImageLabel")
-
-        ThunderScreen.Name = "ThunderScreen"
-        ThunderScreen.Parent = game.CoreGui
-        ThunderScreen.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-
-        ThunderToggleUI.Name = "ThunderToggleUI"
-        ThunderToggleUI.Parent = ThunderScreen
-        ThunderToggleUI.BackgroundColor3 = Color3.fromRGB(31,31,31)
-        ThunderToggleUI.BorderSizePixel = 0
-        ThunderToggleUI.Position = UDim2.new(0.120833337, 0, 0.0952890813, 0)
-        ThunderToggleUI.Size = UDim2.new(0, 50, 0, 50)
-        ThunderToggleUI.Font = Enum.Font.SourceSans
-        ThunderToggleUI.Text = ""
-        ThunderToggleUI.TextColor3 = Color3.fromRGB(0, 0, 0)
-        ThunderToggleUI.TextSize = 14.000
-        ThunderToggleUI.Draggable = true
-        ThunderToggleUI.MouseButton1Click:Connect(function()
-        game:GetService("VirtualInputManager"):SendKeyEvent(true,305,false,game)
-        game:GetService("VirtualInputManager"):SendKeyEvent(false,305,false,game)
-        end)
-
-        ThunderCornerUI.Name = "ThunderCornerUI"
-        ThunderCornerUI.Parent = ThunderToggleUI
-
-        ThunderImageUI.Name = "MODILEMAGE"
-        ThunderImageUI.Parent = ThunderToggleUI
-        ThunderImageUI.BackgroundColor3 = Color3.fromRGB(192,192,192)
-        ThunderImageUI.BackgroundTransparency = 1.000
-        ThunderImageUI.BorderSizePixel = 0
-        ThunderImageUI.Position = UDim2.new(0.0, 0, 0.0, 0)
-        ThunderImageUI.Size = UDim2.new(0, 50, 0, 50)
-        ThunderImageUI.Image = "http://www.roblox.com/asset/?id=14586904612"
 
 local Window = Rayfield:CreateWindow({
     Name = "Khanh Hub",
@@ -67,7 +31,109 @@ local Window = Rayfield:CreateWindow({
  local Button = Tab:CreateButton({
     Name = "Refresh",
     Callback = function()
-    -- The function that takes place when the button is pressed
+      function activatefly()
+         local mouse=game.Players.LocalPlayer:GetMouse''
+         localplayer=game.Players.LocalPlayer
+         game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+         local torso = game.Players.LocalPlayer.Character.HumanoidRootPart
+         local speedSET=25
+         local keys={a=false,d=false,w=false,s=false}
+         local e1
+         local e2
+         local function start()
+            local pos = Instance.new("BodyPosition",torso)
+            local gyro = Instance.new("BodyGyro",torso)
+            pos.Name="EPIXPOS"
+            pos.maxForce = Vector3.new(math.huge, math.huge, math.huge)
+            pos.position = torso.Position
+            gyro.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+            gyro.cframe = torso.CFrame
+            repeat
+               wait()
+               localplayer.Character.Humanoid.PlatformStand=true
+               local new=gyro.cframe - gyro.cframe.p + pos.position
+               if not keys.w and not keys.s and not keys.a and not keys.d then
+                  speed=1
+               end
+               if keys.w then
+                  new = new + workspace.CurrentCamera.CoordinateFrame.lookVector * speed
+                  speed=speed+speedSET
+               end
+               if keys.s then
+                  new = new - workspace.CurrentCamera.CoordinateFrame.lookVector * speed
+                  speed=speed+speedSET
+               end
+               if keys.d then
+                  new = new * CFrame.new(speed,0,0)
+                  speed=speed+speedSET
+               end
+               if keys.a then
+                  new = new * CFrame.new(-speed,0,0)
+                  speed=speed+speedSET
+               end
+               if speed>speedSET then
+                  speed=speedSET
+               end
+               pos.position=new.p
+               if keys.w then
+                  gyro.cframe = workspace.CurrentCamera.CoordinateFrame*CFrame.Angles(-math.rad(speed*90),0,0)
+               elseif keys.s then
+                  gyro.cframe = workspace.CurrentCamera.CoordinateFrame*CFrame.Angles(math.rad(speed*90),0,0)
+               else
+                  gyro.cframe = workspace.CurrentCamera.CoordinateFrame
+               end
+            until not Fly
+            if gyro then 
+               gyro:Destroy() 
+            end
+            if pos then 
+               pos:Destroy() 
+            end
+            flying=false
+            localplayer.Character.Humanoid.PlatformStand=false
+            speed=0
+         end
+         e1=mouse.KeyDown:connect(function(key)
+            if not torso or not torso.Parent then 
+               flying=false e1:disconnect() e2:disconnect() return 
+            end
+            if key=="w" then
+               keys.w=true
+            elseif key=="s" then
+               keys.s=true
+            elseif key=="a" then
+               keys.a=true
+            elseif key=="d" then
+               keys.d=true
+            end
+         end)
+         e2=mouse.KeyUp:connect(function(key)
+            if key=="w" then
+               keys.w=false
+            elseif key=="s" then
+               keys.s=false
+            elseif key=="a" then
+               keys.a=false
+            elseif key=="d" then
+               keys.d=false
+            end
+         end)
+         start()
+      end
+      page12:Toggle("Fly",false,function(Value)
+         Fly = Value
+         activatefly()
+      end)
+      page11:Toggle("No Clip",false,function(value)
+         NoClip = value
+      end)
+      game:GetService("RunService").Heartbeat:Connect(
+      function()
+         if NoClip or _G.Observation then
+            game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState(11)
+         end
+      end
+      )
     end,
  })
  Button:Set("Button Example")
