@@ -1,4 +1,4 @@
-local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))() -- loadstring(game:HttpGet('https://raw.githubusercontent.com/Anhtank123/uitest/main/README.md'))()
+local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/Anhtank123/menu/main/README.md'))() -- loadstring(game:HttpGet('https://raw.githubusercontent.com/Anhtank123/uitest/main/README.md'))()
 
 local Window = Rayfield:CreateWindow({
     Name = "Khanh Hub",
@@ -27,21 +27,7 @@ local Window = Rayfield:CreateWindow({
  })
  local Tab = Window:CreateTab("Tab Example", 4483362458) -- Title, Image 
  local Section = Tab:CreateSection("Section Example")
-
- Rayfield:Notify({
-    Title = "Notification",
-    Content = "Wellcome to Khanh Hub",
-    Duration = 5,
-    Image = nill,
-    Actions = { -- Notification Buttons
-       Ignore = {
-          Name = "Okay!",
-          Callback = function()
-          print("The user tapped Okay!")
-       end
-    },
- },
- })
+ 
  local Button = Tab:CreateButton({
     Name = "Refresh",
     Callback = function()
