@@ -1,4 +1,15 @@
 local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/Anhtank123/menu/main/README.md'))() -- loadstring(game:HttpGet('https://raw.githubusercontent.com/Anhtank123/uitest/main/README.md'))()
+local Keybind = Tab:CreateKeybind({
+   Name = "Keybind Example",
+   CurrentKeybind = "Q",
+   HoldToInteract = false,
+   Flag = "Keybind1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Keybind)
+   -- The function that takes place when the keybind is pressed
+   -- The variable (Keybind) is a boolean for whether the keybind is being held or not (HoldToInteract needs to be true)
+   end,
+})
+Keybind:Set("RightCtrl") -- Keybind (string)
 
 local Window = Rayfield:CreateWindow({
     Name = "Khanh Hub",
@@ -25,7 +36,7 @@ local Window = Rayfield:CreateWindow({
        Key = {"khanh"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
     }
  })
- local Tab = Window:CreateTab("Tab Example", 4483362458) -- Title, Image 
+ local Tab = Window:CreateTab("Tab Example") -- Title, Image 
  local Section = Tab:CreateSection("Section Example")
 
  local Button = Tab:CreateButton({
@@ -35,8 +46,9 @@ local Window = Rayfield:CreateWindow({
     end,
  })
  Button:Set("Button Example")
+
  local Toggle = Tab:CreateToggle({
-   Name = "Toggle Example",
+   Name = "Fly",
    CurrentValue = false,
    Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
    Callback = function(Value)
