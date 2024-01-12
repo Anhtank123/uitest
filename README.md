@@ -37,11 +37,11 @@ local Window = Rayfield:CreateWindow({
  Button:Set("Refresh")
 
  local Slider = Tab:CreateSlider({
-   Name = "Slider Example",
+   Name = "Speed",
    Range = {0, 200},
    Increment = 1,
-   Suffix = "Bananas",
-   CurrentValue = 10,
+   Suffix = "Speed",
+   CurrentValue = 1,
    Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
    Callback = function(Value)
       game.Players.LocalPLayers.Character.Humanoid.WalkSpeed = (value)
@@ -49,4 +49,3 @@ local Window = Rayfield:CreateWindow({
    -- The variable (Value) is a number which correlates to the value the slider is currently at
    end,
 })
-Slider:Set(10) -- The new slider integer value
