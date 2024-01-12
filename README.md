@@ -26,7 +26,7 @@ local Window = Rayfield:CreateWindow({
     }
  })
  local Tab = Window:CreateTab("Tab Farm") -- Title, Image 
- local Section = Tab:CreateSection("Section Example")
+ local Section = Tab:CreateSection("Main")
 
  local Button = Tab:CreateButton({
     Name = "Refresh",
@@ -34,16 +34,17 @@ local Window = Rayfield:CreateWindow({
     -- The function that takes place when the button is pressed
     end,
  })
- Button:Set("Button Example")
+ Button:Set("Refresh")
 
  local Slider = Tab:CreateSlider({
    Name = "Slider Example",
-   Range = {0, 100},
-   Increment = 10,
+   Range = {0, 200},
+   Increment = 1,
    Suffix = "Bananas",
    CurrentValue = 10,
    Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
    Callback = function(Value)
+      game.Players.LocalPLayers.Character.WalkSpeed = (value)
    -- The function that takes place when the slider changes
    -- The variable (Value) is a number which correlates to the value the slider is currently at
    end,
